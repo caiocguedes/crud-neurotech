@@ -32,6 +32,7 @@ public class DAO {
 			pstm.setString(2, user.getDataNascimento());
 			pstm.setString(3, user.getSexo());
 			
+			
 			pstm.execute();
 			
 			System.out.println("Usuário inserido com sucesso na base de dados.");
@@ -172,8 +173,10 @@ public class DAO {
 			pstm.executeUpdate();//executa o update
 			
 			System.out.println("Dados deletados.");
+		
 		}catch (Exception e) {
 			e.printStackTrace();
+		
 		}finally {
 			
 			//fechando conexões
@@ -191,5 +194,5 @@ public class DAO {
 			}
 	
 
-}
+	}
 }

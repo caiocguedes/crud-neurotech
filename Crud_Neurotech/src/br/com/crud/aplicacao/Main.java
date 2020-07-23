@@ -10,15 +10,15 @@ public class Main {
 	//inserção de dados no banco - CREATE
 	public static void main(String[] args) throws SQLException {
 		
-		/*DAO userDAO = new DAO();
+		DAO userDAO = new DAO();
 
 		User user1 = new User();
-		user1.setNome("Maria da Silva");
+		user1.setNome("Elias Souza");
 		//user1.setId(01);  || alterado para auto_increment
-		user1.setDataNascimento("25/06/1984");
-		user1.setSexo("F");
+		user1.setDataNascimento("22/02/1982");
+		user1.setSexo("M");
 		
-		userDAO.save(user1);*/
+		userDAO.save(user1);
 		
 	//visualização de dados do banco - READ
 		
@@ -34,13 +34,13 @@ public class Main {
 	//atualização dos dados do banco - UPDATE
 		/*DAO updateDAO = new DAO();
 		
-		updateDAO.update("Joao Oliveira", "28/10/1995", "M", 7);*/
+		updateDAO.update("Pepe Legal", "02/10/1955", "M", 7);*/
 		
 	//eliminação de dados do banco - DELETE
-		DAO deleteDAO = new DAO();
+		/*DAO deleteDAO = new DAO();
 				
-		deleteDAO.delete(2);
+		deleteDAO.delete(5);*/
 	}
 	
-	
+
 }
