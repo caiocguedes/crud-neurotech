@@ -9,15 +9,15 @@ import br.com.crud.model.User;
 public class Main {
 
 		public static void main(String[] args) throws SQLException {
-			DAO userDAO = new DAO();
+			DAO userDAO = new DAO(); //chamando a classe para executar os métodos setados nela
 			// TODO Auto-generated method stub
-			Scanner sc = new Scanner(System.in);
+			Scanner sc = new Scanner(System.in);//fazendo leitura do que é digitado no teclado 
 			System.out.println("CRUD System\n");
 			
 			String input = "";
 			
 			for(int i = 0; ; ) {
-				
+				//menu do usuário
 				System.out.println("|    Option    | Meaning |");
 				System.out.println("|------------------------|");
 				System.out.println("|      C       | Create  |");
@@ -32,23 +32,23 @@ public class Main {
 				sc.nextLine();
 				
 				
-				if(input.contentEquals("C")) {
+				if(input.contentEquals("C")) {//verifica se a opção digitada equivale ao create e inicia a criação do user
 					System.out.println("Creating a new user...");
 					User user1 = new User();
 					System.out.println("Insert name: ");
-					String nome = sc.nextLine();
+					String nome = sc.nextLine();//mostra a linha atual e avança para a próxima
 					System.out.println("Insert birth date: ");
 					String dataNascimento = sc.nextLine();
 					System.out.println("Insert gender: ");
-					String sexo = sc.next();
+					String sexo = sc.next();//retorna a próxima informação do scanner
 					user1.setNome(nome);
 					user1.setDataNascimento(dataNascimento);
 					user1.setSexo(sexo);
 					
-					userDAO.save(user1);
+					userDAO.save(user1);//chama o método e salva
 					
 				} else if(input.contentEquals("R")) {
-					for(User u : userDAO.getUsers()) {
+					for(User u : userDAO.getUsers()) {//para cada usuário existente no banco, mostra as informações solicitadas com os getters
 						System.out.println("ID:" + u.getId());
 						System.out.println("User:" + u.getNome());
 						System.out.println("User:" + u.getDataNascimento());
@@ -71,7 +71,7 @@ public class Main {
 					String sexo = sc.next();
 					
 										
-					updateDAO.update(nome, dataNascimento, sexo, id);
+					updateDAO.update(nome, dataNascimento, sexo, id);//faz o update de acordo com os valores passados
 					
 				} else if(input.contentEquals("D")) {
 					System.out.println("Please insert the user ID: ");

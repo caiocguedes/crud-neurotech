@@ -16,29 +16,30 @@ public class DAO {
 	//criação do CRUD
 	
 	public void save(User user) {
-		//inserindo parsing para que os parâmetros inseridos substituam as interrogações
+		//query de inserção de dados no banco
+		//parsing para que os parâmetros inseridos substituam as interrogações
 		String sql = "INSERT INTO users(nome, dataNascimento, sexo) VALUES (?, ?, ?)"; 
 		
 		Connection conn = null;
-		PreparedStatement pstm = null;//preparação da estrutura de execução do java com o SQL
+		PreparedStatement pstm = null;//variável onde será montada a query de acordo com os parâmetros passados
 		
-		try {
+		try {//verificando a conexão do banco
 			//cria uma conexão com o banco de dados
 			conn = (Connection) ConnectionFactory.createConnectionToMySQL();
 			
-			pstm = conn.prepareStatement(sql);//executa uma query
+			pstm = conn.prepareStatement(sql);//pega a conexão, prepara o statement e executa a query sql
 			//passando os valores esperados pela query
 			pstm.setString(1, user.getNome());
 			pstm.setString(2, user.getDataNascimento());
 			pstm.setString(3, user.getSexo());
 			
 			
-			pstm.execute();
+			pstm.execute();//executa a query
 			
-			System.out.println("Usuário inserido com sucesso na base de dados.");
-		}catch (Exception e) {
+			System.out.println("User inserted successfully.");
+		}catch (Exception e) {//tratamento de exceção
 			e.printStackTrace();
-		}finally {
+		}finally {//caso dê certo, finaliza as conexões com o banco
 			
 			//fechando conexões
 			try {
@@ -46,37 +47,39 @@ public class DAO {
 					pstm.close();
 				}
 				
-				if(conn!=null) {
+				if(conn!=null) {//caso a conexão ainda esteja ativa, fecha a conexão
 					conn.close();
 				}
-			}catch(Exception e) {
+			}catch(Exception e) {//caso mais alguma coisa dê errado, gera uma outra exceção
 					e.printStackTrace();
 				}
 			}
 		}
 	
 	@SuppressWarnings("finally")
-	public List<User> getUsers() {
+	public List<User> getUsers() {//fazendo uma listagem de contatos
 		
 		String sql = "SELECT * FROM USERS";
 		
-		List<User> users = new ArrayList<User>();
+		List<User> users = new ArrayList<User>();//criando lista para guardar os dados buscados no banco
 		
 		Connection conn = null;
 		PreparedStatement pstm = null;
 		
 		ResultSet rset = null;
 		
-		try {
+		try {//conectando com o banco, igual ao método anterior
 			conn = ConnectionFactory.createConnectionToMySQL();
 			
 			pstm = conn.prepareStatement(sql);
+			//classe que recupera os dados do banco
+			rset = pstm.executeQuery();//recebe os dados que vieram do banco
 			
-			rset = pstm.executeQuery();
-			
-			while (rset.next()) {
+			while (rset.next()) {//enquanto existirem registros no banco...
 				
-				User user = new User();
+				User user = new User();//...cria uma nova instância de usuário...
+				
+				//...e seta os dados de acordo com o que será passado na execução do Main.
 				
 				//recupera o id
 				user.setId(rset.getInt("id"));
@@ -128,13 +131,13 @@ public class DAO {
 					pstm = conn.prepareStatement(sql);//executa uma query
 					//passando os valores de atualização da query de acordo com os parâmetros do método update
 					pstm.setString(1, nome);
-					pstm.setString(2, dataNascimento);
+					pstm.setString(2, dataNascimento);    //valores serão setados para atualização e não buscados na classe User!
 					pstm.setString(3, sexo);
 					pstm.setInt(4, id);
 					
 					pstm.executeUpdate();//executa o update
 					
-					System.out.println("Dados alterados com sucesso.");
+					System.out.println("Daata changed successfully.");
 				}catch (Exception e) {
 					e.printStackTrace();
 				}finally {
@@ -172,7 +175,7 @@ public class DAO {
 			
 			pstm.executeUpdate();//executa o update
 			
-			System.out.println("Dados deletados.");
+			System.out.println("Data deleted successfully.");
 		
 		}catch (Exception e) {
 			e.printStackTrace();
